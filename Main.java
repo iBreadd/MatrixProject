@@ -142,6 +142,50 @@ public class Main {
         }
     }
 
+    public static int[][] findInverseMatrix(int[][] matrix) {
+        int n = matrix.length;
+
+        // Намиране на детерминантата на матрицата
+        int determinant = findDeterminant(matrix);
+
+        // Проверка дали матрицата има обратна (детерминантата е различна от 0)
+        if (determinant == 0) {
+            return null;
+        }
+
+        // Инициализиране на обратната матрица
+        int[][] inverseMatrix = new int[n][n];
+
+        // Изчисляване на обратната матрица по формулата
+        int invDet = multiplicativeInverse(determinant);
+        inverseMatrix[0][0] = matrix[1][1] * invDet;
+        inverseMatrix[0][1] = -matrix[0][1] * invDet;
+        inverseMatrix[1][0] = -matrix[1][0] * invDet;
+        inverseMatrix[1][1] = matrix[0][0] * invDet;
+
+        return inverseMatrix;
+    }
+
+    private static int multiplicativeInverse(int a) {
+        for (int x = 1; x < Integer.MAX_VALUE; x++) {
+            if ((a * x) % Integer.MAX_VALUE == 1) {
+                return x;
+            }
+        }
+        return 1;
+    }
+
+    public static void printInverseMatrix(int[][] matrix) {
+        int[][] inverseMatrix = findInverseMatrix(matrix);
+
+        if (inverseMatrix != null) {
+            System.out.println("Обратната матрица е:");
+            printMatrix(inverseMatrix);
+        } else {
+            System.out.println("Матрицата няма обратна. Детерминантата е 0.");
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -165,11 +209,15 @@ public class Main {
         System.out.println("Втора матрица:");
         printMatrix(matrix2);
 
-        performMatrixAddition(matrix1, matrix2);
+//        performMatrixAddition(matrix1, matrix2);
+//
+//        performMatrixMultiplication(matrix1, matrix2);
+//
+//        printDeterminant(findDeterminant(matrix1));
+//        printDeterminant(findDeterminant(matrix2));
 
-        performMatrixMultiplication(matrix1, matrix2);
+        printInverseMatrix(matrix1);
+        printInverseMatrix(matrix2);
 
-        printDeterminant(findDeterminant(matrix1));
-        printDeterminant(findDeterminant(matrix2));
     }
 }
