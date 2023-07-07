@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static int[][] inputTheMatrix(int rows, int columns) {
+    public static int[][] inputMatrix(int rows, int columns) {
         Scanner sc = new Scanner(System.in);
 
         int[][] matrix = new int[rows][columns];
@@ -18,9 +18,22 @@ public class Main {
         return matrix;
     }
 
-    public static void outputTheMatrix(int[][] matrix) {
-        System.out.println("Въведената матрица е:");
+    public static int[][] addMatrices(int[][] matrix1, int[][] matrix2) {
+        int rows = matrix1.length;
+        int columns = matrix1[0].length;
 
+        int[][] result = new int[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                result[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    public static void printMatrix(int[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
@@ -32,15 +45,47 @@ public class Main {
         }
     }
 
+    public static boolean validateMatrixDimensions(int[][] matrix1, int[][] matrix2) {
+        int rows1 = matrix1.length;
+        int columns1 = matrix1[0].length;
+        int rows2 = matrix2.length;
+        int columns2 = matrix2[0].length;
+
+        return rows1 == rows2 && columns1 == columns2;
+    }
+
+    public static void performMatrixAddition(int[][] matrix1, int[][] matrix2) {
+        if (validateMatrixDimensions(matrix1, matrix2)) {
+            int[][] sum = addMatrices(matrix1, matrix2);
+            System.out.println("Резултатът от събирането на двете матрици е:");
+            printMatrix(sum);
+        } else {
+            System.out.println("Матриците не могат да бъдат събрани. Размерностите им не съвпадат.");
+        }
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Въведете брой на редовете: ");
-        int rows = scanner.nextInt();
-        System.out.print("Въведете брой на колоните: ");
-        int columns = scanner.nextInt();
+        System.out.print("Въведете редовете на първата матрица: ");
+        int rows1 = scanner.nextInt();
+        System.out.print("Въведете колоните на първата матрица: ");
+        int columns1 = scanner.nextInt();
 
-        int[][] matrix = inputTheMatrix(rows, columns);
-        outputTheMatrix(matrix);
+        int[][] matrix1 = inputMatrix(rows1, columns1);
+
+        System.out.println("Първа матрица:");
+        printMatrix(matrix1);
+
+        System.out.print("Въведете редовете на втората матрица: ");
+        int rows2 = scanner.nextInt();
+        System.out.print("Въведете колоните на втората матрица: ");
+        int columns2 = scanner.nextInt();
+
+        int[][] matrix2 = inputMatrix(rows2, columns2);
+
+        System.out.println("Втора матрица:");
+        printMatrix(matrix2);
+
+        performMatrixAddition(matrix1, matrix2);
     }
 }
