@@ -107,6 +107,40 @@ public class Main {
             System.out.println("Матриците не могат да бъдат умножени. Невалидни размерности.");
         }
     }
+    public static int findDeterminant(int[][] matrix) {
+        int n = matrix.length;
+
+        if (n == 1) {
+            return matrix[0][0];
+        } else if (n == 2) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        } else {
+            int determinant = 0;
+
+            for (int i = 0; i < n; i++) {
+                int[][] subMatrix = new int[n - 1][n - 1];
+                for (int j = 1; j < n; j++) {
+                    for (int k = 0, l = 0; k < n; k++) {
+                        if (k != i) {
+                            subMatrix[j - 1][l] = matrix[j][k];
+                            l++;
+                        }
+                    }
+                }
+                determinant += (i % 2 == 0 ? 1 : -1) * matrix[0][i] * findDeterminant(subMatrix);
+            }
+
+            return determinant;
+        }
+    }
+
+    public static void printDeterminant(int determinant) {
+        if (determinant == 0) {
+            System.out.println("Детерминантата на матрицата е 0. Матрицата е сингуларна или необратима.");
+        } else {
+            System.out.println("Детерминантата на матрицата е равна на: " + determinant + ". Матрицата е невръщаема (invertible) или обратима.");
+        }
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -134,5 +168,8 @@ public class Main {
         performMatrixAddition(matrix1, matrix2);
 
         performMatrixMultiplication(matrix1, matrix2);
+
+        printDeterminant(findDeterminant(matrix1));
+        printDeterminant(findDeterminant(matrix2));
     }
 }
