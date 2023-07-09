@@ -33,6 +33,28 @@ public class Main {
         return result;
     }
 
+    public static int[][] subtractMatrices(int[][] A, int[][] B) {
+        int rows = A.length;
+        int cols = A[0].length;
+
+        // Проверка за еднакъв размер на матриците
+        if (rows != B.length || cols != B[0].length) {
+            throw new IllegalArgumentException("Матриците трябва да имат еднакъв размер!");
+        }
+
+        // Инициализиране на резултантната матрица
+        int[][] C = new int[rows][cols];
+
+        // Изваждане на съответните елементи
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                C[i][j] = A[i][j] - B[i][j];
+            }
+        }
+
+        return C;
+    }
+
     public static void printMatrix(int[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
@@ -344,7 +366,8 @@ public class Main {
                     performMatrixAddition(matrix1, matrix2);
                     break;
                 case 3:
-                    // Логика за изваждане на 2 матрици
+                    int[][] result = subtractMatrices(matrix1, matrix2);
+                    printMatrix(result);
                     break;
                 case 4:
                     performMatrixMultiplication(matrix1, matrix2);
