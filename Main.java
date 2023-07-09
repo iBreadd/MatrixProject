@@ -273,55 +273,26 @@ public class Main {
     }
 
 
-    public static boolean canTransformToIdentityMatrix(int[][] matrix) {
-        int n = matrix.length;
+    public static void convertToUnitMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
 
         // Проверка дали матрицата е квадратна
-        if (n != matrix[0].length) {
-            return false;
+        if (rows != cols) {
+            throw new IllegalArgumentException("Матрицата трябва да бъде квадратна!");
         }
 
-        // Извършване на елементарни редови операции
-        for (int i = 0; i < n; i++) {
-            // Проверка за ненулев елемент на главния диагонал
-            if (matrix[i][i] == 0) {
-                // Намерен елемент, който не може да бъде преобразуван до 1
-                return false;
-            }
-
-            // Преобразуване на елементите под главния диагонал до нули
-            for (int j = i + 1; j < n; j++) {
-                int factor = matrix[j][i] / matrix[i][i];
-                for (int k = i; k < n; k++) {
-                    matrix[j][k] -= factor * matrix[i][k];
+        // Обхождане на елементите на матрицата
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (i == j) {
+                    matrix[i][j] = 1; // Задаване на главния диагонал на 1
+                } else {
+                    matrix[i][j] = 0; // Задаване на останалите елементи на 0
                 }
             }
         }
-
-        return true;
     }
-
-
-
-    public static void printMatrixWithIdentityCheck(int[][] matrix) {
-        int rows = matrix.length;
-        int columns = matrix[0].length;
-
-        System.out.println("Матрица:");
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        }
-
-        if (canTransformToIdentityMatrix(matrix)) {
-            System.out.println("Това е единична матрица.");
-        } else {
-            System.out.println("Това не е единична матрица.");
-        }
-    }
-
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -379,28 +350,45 @@ public class Main {
                     printDeterminant(findDeterminant(matrix2));
                     break;
                 case 6:
-                    System.out.println("Транспонирана матрица 1:");
-                    int[][] transposeMatrix = calculateTranspose(matrix1);
-                    printTransposeMatrix(transposeMatrix);
+                    try {
+                        System.out.println("Транспонирана матрица 1:");
+                        int[][] transposeMatrix = calculateTranspose(matrix1);
+                        printTransposeMatrix(transposeMatrix);
 
-                    System.out.println("Обратна матрица 1:");
-                    int[][] adjugateMatrix = calculateAdjugate(matrix1);
-                    printAdjugateMatrix(adjugateMatrix);
-                    //printInverseMatrix(matrix1);
+                        System.out.println("Обратна матрица 1:");
+                        int[][] adjugateMatrix = calculateAdjugate(matrix1);
+                        printAdjugateMatrix(adjugateMatrix);
+                        //printInverseMatrix(matrix1);
 
-                    System.out.println("Транспонирана матрица 2:");
-                    int[][] transposeMatrix2 = calculateTranspose(matrix2);
-                    printTransposeMatrix(transposeMatrix2);
+                        System.out.println("Транспонирана матрица 2:");
+                        int[][] transposeMatrix2 = calculateTranspose(matrix2);
+                        printTransposeMatrix(transposeMatrix2);
 
-                    System.out.println("Обратна матрица 2:");
-                    int[][] adjugateMatrix2 = calculateAdjugate(matrix2);
-                    printAdjugateMatrix(adjugateMatrix2);
+                        System.out.println("Обратна матрица 2:");
+                        int[][] adjugateMatrix2 = calculateAdjugate(matrix2);
+                        printAdjugateMatrix(adjugateMatrix2);
 
-                    //printInverseMatrix(matrix2);
+                        //printInverseMatrix(matrix2);
+                    }catch (ArrayIndexOutOfBoundsException e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 7:
-                    printMatrixWithIdentityCheck(matrix1);
-                    printMatrixWithIdentityCheck(matrix2);
+                    try {
+                        System.out.println("Матрицата преди преобразуването: ");
+                        printMatrix(matrix1);
+                        convertToUnitMatrix(matrix1);
+                        System.out.println("Матрицата след преобразуването: ");
+                        printMatrix(matrix1);
+
+                        System.out.println("Матрицата преди преобразуването: ");
+                        printMatrix(matrix2);
+                        convertToUnitMatrix(matrix2);
+                        System.out.println("Матрицата след преобразуването: ");
+                        printMatrix(matrix2);
+                    }catch (IllegalArgumentException e){
+                        System.out.println("Грешка при преобразуване: "+e.getMessage());
+                    }
                     break;
                 case 8:
                     System.out.println("Програмата спря да работи!");
