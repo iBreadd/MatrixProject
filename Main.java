@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Main {
     // Въвеждане на матриците , извиква се в майна
-    public static int[][] inputMatrix(int rows, int columns) {
+    public static double[][] inputMatrix(int rows, int columns) {
         Scanner sc = new Scanner(System.in);
 
-        int[][] matrix = new int[rows][columns];
+        double[][] matrix = new double[rows][columns];
 
         System.out.println("Въведете елементите на матрицата:");
 
@@ -21,7 +21,7 @@ public class Main {
 
 
     //Целта на този метод е да провери дали размерностите на двете матрици са еднакви
-    public static boolean validateMatrixDimensions(int[][] matrix1, int[][] matrix2) {
+    public static boolean validateMatrixDimensions(double[][] matrix1, double[][] matrix2) {
         int rows1 = matrix1.length;
         int columns1 = matrix1[0].length;
         int rows2 = matrix2.length;
@@ -30,11 +30,11 @@ public class Main {
         return rows1 == rows2 && columns1 == columns2;
     }
     // Събиране на две матрици
-    public static int[][] addMatrices(int[][] matrix1, int[][] matrix2) {
+    public static double[][] addMatrices(double[][] matrix1, double[][] matrix2) {
         int rows = matrix1.length;
         int columns = matrix1[0].length;
 
-        int[][] result = new int[rows][columns];
+        double[][] result = new double[rows][columns];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -45,9 +45,9 @@ public class Main {
         return result;
     }
     // Извеждане на резултата.
-    public static void performMatrixAddition(int[][] matrix1, int[][] matrix2) {
+    public static void performMatrixAddition(double[][] matrix1, double[][] matrix2) {
         if (validateMatrixDimensions(matrix1, matrix2)) {
-            int[][] sum = addMatrices(matrix1, matrix2);
+            double[][] sum = addMatrices(matrix1, matrix2);
             System.out.println("Резултатът от събирането на двете матрици е:");
             printMatrix(sum);
         } else {
@@ -57,7 +57,7 @@ public class Main {
 
     // Изваждане на две матрици
 
-    public static int[][] subtractMatrices(int[][] A, int[][] B) {
+    public static double[][] subtractMatrices(double[][] A, double[][] B) {
         int rows = A.length;
         int cols = A[0].length;
 
@@ -67,7 +67,7 @@ public class Main {
         }
 
         // Инициализиране на резултантната матрица
-        int[][] C = new int[rows][cols];
+        double[][] C = new double[rows][cols];
 
         // Изваждане на съответните елементи
         for (int i = 0; i < rows; i++) {
@@ -79,7 +79,7 @@ public class Main {
         return C;
     }
     //Принтиране на матрица
-    public static void printMatrix(int[][] matrix) {
+    public static void printMatrix(double[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
@@ -92,7 +92,7 @@ public class Main {
     }
 
     //Целта на този метод е да провери дали размерностите на двете матрици са еднакви
-    public static boolean validateMatrixDimensionsForMultiplication(int[][] matrix1, int[][] matrix2) {
+    public static boolean validateMatrixDimensionsForMultiplication(double[][] matrix1, double[][] matrix2) {
         int columns1 = matrix1[0].length;
         int rows2 = matrix2.length;
 
@@ -100,7 +100,7 @@ public class Main {
     }
 
     // Умножаване на двете матрици
-    public static int[][] multiplyMatrices(int[][] matrix1, int[][] matrix2) {
+    public static double[][] multiplyMatrices(double[][] matrix1, double[][] matrix2) {
         int rows1 = matrix1.length;
         int columns1 = matrix1[0].length;
         int rows2 = matrix2.length;
@@ -110,7 +110,7 @@ public class Main {
             return null;
         }
 
-        int[][] result = new int[rows1][columns2];
+        double[][] result = new double[rows1][columns2];
 
         for (int i = 0; i < rows1; i++) {
             for (int j = 0; j < columns2; j++) {
@@ -123,9 +123,9 @@ public class Main {
         return result;
     }
     //Извеждане на резултата от умножението на двете матрици
-    public static void performMatrixMultiplication(int[][] matrix1, int[][] matrix2) {
+    public static void performMatrixMultiplication(double[][] matrix1, double[][] matrix2) {
         if (validateMatrixDimensionsForMultiplication(matrix1, matrix2)) {
-            int[][] product = multiplyMatrices(matrix1, matrix2);
+            double[][] product = multiplyMatrices(matrix1, matrix2);
 
             if (product != null) {
                 System.out.println("Резултатът от умножението на двете матрици е:");
@@ -139,7 +139,7 @@ public class Main {
     }
 
     //Намиране на детерминантата на матрицата
-    public static int findDeterminant(int[][] matrix) {
+    public static double findDeterminant(double[][] matrix) {
         int n = matrix.length;
 
         if (n == 1) {
@@ -150,7 +150,7 @@ public class Main {
             int determinant = 0;
 
             for (int i = 0; i < n; i++) {
-                int[][] subMatrix = new int[n - 1][n - 1];
+                double[][] subMatrix = new double[n - 1][n - 1];
                 for (int j = 1; j < n; j++) {
                     for (int k = 0, l = 0; k < n; k++) {
                         if (k != i) {
@@ -167,16 +167,16 @@ public class Main {
     }
 
     //Извеждане на детерминантата на матрицата
-    public static void printDeterminant(int determinant) {
+    public static void printDeterminant(double determinant) {
         System.out.println("Детерминантата на матрицата е равна на: " + determinant);
     }
 
     //Намиране на транспонирана матрица
-    public static int[][] calculateTranspose(int[][] matrix) {
+    public static double[][] calculateTranspose(double[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
-        int[][] transposeMatrix = new int[columns][rows];
+        double[][] transposeMatrix = new double[columns][rows];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -187,7 +187,7 @@ public class Main {
         return transposeMatrix;
     }
     //Принтиране на транспонираната матрица
-    public static void printTransposeMatrix(int[][] matrix) {
+    public static void printTransposeMatrix(double[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
@@ -200,9 +200,9 @@ public class Main {
     }
 
     // Намиране на минора на матрицата за Adjugate метода.
-    public static int calculateMinor(int[][] matrix, int row, int column) {
+    public static double calculateMinor(double[][] matrix, int row, int column) {
         int n = matrix.length;
-        int[][] subMatrix = new int[n - 1][n - 1];
+        double[][] subMatrix = new double[n - 1][n - 1];
 
         int rowIndex = 0;
         for (int i = 0; i < n; i++) {
@@ -223,18 +223,18 @@ public class Main {
         return findDeterminant(subMatrix);
     }
     //Изчисляване на обратната матрица чрез метода на Adjugate
-    public static int[][] calculateAdjugate(int[][] matrix) {
+    public static double[][] calculateAdjugate(double[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
-        int[][] adjugateMatrix = new int[rows][columns];
+        double[][] adjugateMatrix = new double[rows][columns];
 
-        int[][] transposeMatrix = calculateTranspose(matrix);
+        double[][] transposeMatrix = calculateTranspose(matrix);
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 int sign = (int) Math.pow(-1, i + j);
-                int minor = calculateMinor(transposeMatrix, i, j);
+                double minor = calculateMinor(transposeMatrix, i, j);
                 adjugateMatrix[i][j] = sign * minor;
             }
         }
@@ -243,7 +243,7 @@ public class Main {
     }
 
     //Принтиране на Adjugate матрицата
-    public static void printAdjugateMatrix(int[][] matrix) {
+    public static void printAdjugateMatrix(double[][] matrix) {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
@@ -256,11 +256,11 @@ public class Main {
     }
 
     //Тук трябваше да деля Adjugate метода на детерминантата и да получа обратната матрица точно. Псоле трябваше да я извеждам ама...
-    public static int[][] divideByDeterminant(int[][] adjugateMatrix, int determinant) {
+    public static double[][] divideByDeterminant(double[][] adjugateMatrix, double determinant) {
         int rows = adjugateMatrix.length;
         int columns = adjugateMatrix[0].length;
 
-        int[][] result = new int[rows][columns];
+        double[][] result = new double[rows][columns];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -272,13 +272,13 @@ public class Main {
     }
 
 
-    public static void printInverseMatrix(int[][] matrix) {
-        int determinant = findDeterminant(matrix);
+    public static void printInverseMatrix(double[][] matrix) {
+        double determinant = findDeterminant(matrix);
         if (determinant == 0) {
             System.out.println("Матрицата няма обратна. Детерминантата е 0.");
         } else {
-            int[][] adjugateMatrix = calculateAdjugate(matrix);
-            int[][] inverseMatrix = divideByDeterminant(adjugateMatrix, determinant);
+            double[][] adjugateMatrix = calculateAdjugate(matrix);
+            double[][] inverseMatrix = divideByDeterminant(adjugateMatrix, determinant);
 
             System.out.println("Обратната матрица е:");
             printMatrix(inverseMatrix);
@@ -286,7 +286,7 @@ public class Main {
     }
 
 
-    public static void convertToUnitMatrix(int[][] matrix) {
+    public static void convertToUnitMatrix(double[][] matrix) {
         int rows = matrix.length;
         int cols = matrix[0].length;
 
@@ -315,14 +315,14 @@ public class Main {
         System.out.print("Въведете колоните на първата матрица: ");
         int columns1 = scanner.nextInt();
 
-        int[][] matrix1 = inputMatrix(rows1, columns1);
+        double[][] matrix1 = inputMatrix(rows1, columns1);
 
         System.out.print("Въведете редовете на втората матрица: ");
         int rows2 = scanner.nextInt();
         System.out.print("Въведете колоните на втората матрица: ");
         int columns2 = scanner.nextInt();
 
-        int[][] matrix2 = inputMatrix(rows2, columns2);
+        double[][] matrix2 = inputMatrix(rows2, columns2);
 
         int choice;
 
@@ -350,7 +350,7 @@ public class Main {
                     performMatrixAddition(matrix1, matrix2);
                     break;
                 case 3:
-                    int[][] result = subtractMatrices(matrix1, matrix2);
+                    double[][] result = subtractMatrices(matrix1, matrix2);
                     printMatrix(result);
                     break;
                 case 4:
@@ -365,23 +365,23 @@ public class Main {
                 case 6:
                     try {
                         System.out.println("Транспонирана матрица 1:");
-                        int[][] transposeMatrix = calculateTranspose(matrix1);
+                        double[][] transposeMatrix = calculateTranspose(matrix1);
                         printTransposeMatrix(transposeMatrix);
 
                         System.out.println("Обратна матрица 1:");
-                        int[][] adjugateMatrix = calculateAdjugate(matrix1);
+                        double[][] adjugateMatrix = calculateAdjugate(matrix1);
                         printAdjugateMatrix(adjugateMatrix);
-                        //printInverseMatrix(matrix1);
+                        printInverseMatrix(matrix1);
 
                         System.out.println("Транспонирана матрица 2:");
-                        int[][] transposeMatrix2 = calculateTranspose(matrix2);
+                        double[][] transposeMatrix2 = calculateTranspose(matrix2);
                         printTransposeMatrix(transposeMatrix2);
 
                         System.out.println("Обратна матрица 2:");
-                        int[][] adjugateMatrix2 = calculateAdjugate(matrix2);
+                        double[][] adjugateMatrix2 = calculateAdjugate(matrix2);
                         printAdjugateMatrix(adjugateMatrix2);
 
-                        //printInverseMatrix(matrix2);
+                        printInverseMatrix(matrix2);
                     }catch (ArrayIndexOutOfBoundsException e){
                         System.out.println(e.getMessage());
                     }
